@@ -53,3 +53,28 @@
       <!-- Placeholder for user avatar, ignored by screen readers -->
     </div>
   </header>
+
+  <div class="controls" role="search" aria-label="Podcast filters">
+    <!-- Section containing filters and search input for podcasts -->
+
+    <div class="control-row">
+      <!-- Row that groups all the controls together -->
+
+      <label class="control-label" for="genre-filter">Filter by:</label>
+      <!-- Label for genre filter, linked via 'for' attribute -->
+
+      <select id="genre-filter" class="select" aria-label="Filter by genre"></select>
+      <!-- Dropdown to select podcast genre, initially empty, accessible label provided -->
+
+      <label class="control-label sr-only" for="sort-filter">Sort</label>
+      <!-- Hidden label for sort dropdown, visible only to screen readers (sr-only) -->
+
+      <select id="sort-filter" class="select" aria-label="Sort podcasts">
+        <!-- Dropdown to sort podcasts -->
+        <option value="recent">Recently Updated</option>
+        <!-- Option to sort by most recently updated -->
+        <option value="seasons-desc">Most Seasons</option>
+        <!-- Option to sort by the number of seasons, descending -->
+        <option value="title-asc">Title A→Z</option>
+        <!-- Option to sort alphabetically by title -->
+      </select>
