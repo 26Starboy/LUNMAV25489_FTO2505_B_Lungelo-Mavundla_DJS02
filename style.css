@@ -73,3 +73,48 @@ body{
   transition: transform .12s ease, box-shadow .12s ease;
   /* Small button with hover animation */
 }
+.icon-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 18px rgba(59,130,246,0.12) }
+/* Button lifts slightly with neon-ish shadow on hover */
+.avatar-placeholder{
+  width:34px;height:34px;border-radius:50%;
+  background: linear-gradient(135deg, rgba(59,130,246,0.9), rgba(147,51,234,0.9));
+  /* Gradient circular avatar placeholder */
+  box-shadow: 0 4px 12px rgba(147,51,234,0.18), inset 0 -6px 16px rgba(0,0,0,0.18);
+  /* Outer glow and inner shadow for depth */
+}
+
+/* Controls area */
+.controls{padding:18px 28px;background:transparent}
+.control-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:var(--max-width);margin:0 auto}
+/* Flex row for filters and search with wrapping and centered */
+.control-label{font-weight:600;color:var(--muted);margin-right:6px}
+/* Labels for filters/search */
+.select{
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:rgba(255,255,255,0.02);
+  min-width:160px;
+  color:var(--accent);
+}
+/* Dropdown styling */
+.search-input{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:rgba(255,255,255,0.03);
+  min-width:220px;
+  flex:1;
+  color:var(--accent);
+}
+/* Search box styling; flex:1 makes it grow to fill space */
+
+/* Main grid */
+.main{padding:20px 28px;max-width:var(--max-width);margin:0 auto}
+/* Centered main content area */
+.podcast-grid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap:20px;
+}
+/* 4-column responsive grid for podcasts */
