@@ -1,0 +1,75 @@
+:root{
+  /* CSS variables (custom properties) for colors, spacing, and sizes */
+  --bg:#0f172a; /* darker futuristic base for background */
+  --card: rgba(255,255,255,0.06); /* semi-transparent card background */
+  --muted:#9ca3af; /* muted text color for secondary info */
+  --accent:#e6eef8; /* primary accent color for text and highlights */
+  --pill-bg: rgba(59,130,246,0.08); /* background for genre pills */
+  --shadow: 0 8px 24px rgba(2,6,23,0.18); /* box shadow for cards */
+  --radius:12px; /* standard border radius for rounded corners */
+  --max-width:1100px; /* max width for content containers */
+  --accent-1: #3b82f6; /* neon blue accent */
+  --accent-2: #9333ea; /* neon purple accent */
+}
+
+/* Reset + base styles */
+*{box-sizing:border-box} 
+/* All elements include padding and border in their width/height calculations */
+
+html,body{height:100%} 
+/* Ensure the html and body take up full viewport height */
+
+body{
+  margin:0; 
+  /* Remove default margin */
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
+  /* Set font stack */
+  background: linear-gradient(135deg, #0b1020 0%, #122034 40%, #17263c 100%); 
+  /* Dark gradient background */
+  color:var(--accent); 
+  /* Default text color */
+  -webkit-font-smoothing:antialiased; 
+  -moz-osx-font-smoothing:grayscale; 
+  /* Smooth fonts for better readability */
+}
+
+/* Accessibility helper: visually hidden elements */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+  /* Hides element visually but keeps it readable by screen readers */
+}
+
+/* Header styles */
+.site-header{
+  display:flex; 
+  justify-content:space-between; 
+  align-items:center; 
+  padding:18px 28px; 
+  /* Flex container, space between items, vertical center alignment, padding */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); 
+  /* Slight translucent header */
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02); 
+  /* Tiny bottom border effect */
+}
+.header-left{display:flex;align-items:center;gap:12px}
+/* Left part of header, flex layout with spacing between items */
+.brand{font-size:18px;margin:0;color:var(--accent)}
+/* App name styling */
+.logo-icon{color:var(--accent)}
+/* Logo SVG inherits accent color */
+.header-right{display:flex;align-items:center;gap:12px}
+/* Right part of header, contains buttons and avatar */
+.icon-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.04);
+  padding:6px;
+  border-radius:8px;
+  cursor:pointer;
+  color:var(--accent);
+  transition: transform .12s ease, box-shadow .12s ease;
+  /* Small button with hover animation */
+}
