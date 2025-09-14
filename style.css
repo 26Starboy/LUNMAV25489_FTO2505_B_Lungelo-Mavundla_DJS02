@@ -208,3 +208,65 @@ podcast-preview { display:block; }
 /* Semi-transparent overlay behind modal */
 [hidden]{display:none !important}
 /* Utility to hide elements completely */
+.podcast-modal{
+  position:fixed;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width: min(1000px, 92%);
+  max-height: 90vh;
+  overflow:auto;
+  background: rgba(8,12,20,0.85);
+  border-radius:12px;
+  padding:22px;
+  box-shadow: 0 30px 80px rgba(2,6,23,0.6);
+  z-index:70;
+  color: var(--accent);
+  border: 1px solid rgba(147,51,234,0.12);
+}
+/* Modal container styling with center alignment, shadow, rounded corners, scroll if too tall */
+
+/* Modal close button */
+.modal-close{
+  position:absolute; right:18px; top:18px; border:none; background:none; font-size:20px; cursor:pointer; color:var(--accent);
+}
+/* Close button in top-right corner */
+
+/* Modal content layout */
+.modal-content{ display:flex; gap:22px; align-items:flex-start }
+/* Flex container for left (cover) and right (details) */
+.modal-left{ width:240px; flex: 0 0 240px; }
+/* Fixed width left column */
+.modal-cover{ width:100%; border-radius:10px; height:220px; object-fit:cover; background:#e6e9ee }
+/* Podcast cover inside modal */
+.modal-right{ flex:1; min-width:0 }
+/* Right side takes remaining space */
+
+/* Modal text styles */
+.modal-title{ margin:0 0 12px; font-size:24px; color:var(--accent) }
+.modal-section{ margin-bottom:18px }
+.section-label{ margin:0 0 8px; font-size:14px; color:var(--muted); font-weight:600 }
+.modal-description{ color:#cbd5e1; line-height:1.6 }
+/* Styling for title, section labels, description text */
+
+/* Seasons list inside modal */
+.seasons-list{ display:flex; flex-direction:column; gap:12px; margin-top:12px }
+.season-item{
+  border-radius:10px; padding:16px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02); display:flex; justify-content:space-between; align-items:center;
+  box-shadow: 0 2px 6px rgba(2,6,23,0.03)
+}
+/* Individual season item box */
+.season-title{ font-weight:600; color:var(--accent) }
+.season-sub{ color:var(--muted); font-size:13px }
+/* Season title and subtitle styling */
+
+/* Small helper text */
+.kv{ color:var(--muted); font-size:13px; display:flex; align-items:center; gap:8px; margin-top:10px }
+/* Key-value small info rows */
+
+/* Small screen modal stacking */
+@media (max-width:600px){
+  .modal-content{ flex-direction:column; }
+  .modal-left{ width:100%; flex:none; }
+  .modal-cover{ height:180px; }
+}
+/* On small screens, modal stacks vertically and cover shrinks */
