@@ -78,3 +78,61 @@
         <option value="title-asc">Title A→Z</option>
         <!-- Option to sort alphabetically by title -->
       </select>
+
+       <input id="search-input" class="search-input" type="text" placeholder="Search podcasts..." aria-label="Search podcasts">
+      <!-- Text input for searching podcasts, placeholder guides users, accessible label included -->
+    </div>
+  </div>
+
+  <main class="main">
+    <!-- Main content area of the page -->
+
+    <section id="podcast-grid" class="podcast-grid" aria-live="polite" aria-label="Podcast grid"></section>
+    <!-- Section where all podcast previews will be displayed dynamically -->
+    <!-- 'aria-live="polite"' announces updates for screen readers without being too disruptive -->
+  </main>
+
+  <!-- Backdrop (hidden by default) -->
+  <div id="modal-backdrop" class="modal-backdrop" hidden></div>
+  <!-- Semi-transparent overlay shown behind modal when active, hidden initially -->
+
+  <!-- Podcast modal (hidden by default) -->
+  <aside id="podcast-modal" class="podcast-modal" role="dialog" aria-modal="true" aria-hidden="true" hidden tabindex="-1">
+    <!-- Modal dialog that appears when a podcast is clicked -->
+    <!-- 'aria-modal' indicates that this dialog is modal -->
+    <!-- 'tabindex=-1' allows JavaScript to focus it programmatically -->
+
+    <button id="modal-close" class="modal-close" aria-label="Close modal">✕</button>
+    <!-- Button to close the modal, accessible label included -->
+
+    <div class="modal-content">
+      <!-- Container for modal content -->
+
+      <div class="modal-left">
+        <!-- Left side of modal, usually for the podcast cover image -->
+        <img id="modal-cover" class="modal-cover" alt="Large cover" src="">
+        <!-- Image element for the large podcast cover -->
+      </div>
+
+      <div class="modal-right">
+        <!-- Right side of modal, contains text and other details -->
+
+        <h2 id="modal-title" class="modal-title">Podcast Title</h2>
+        <!-- Heading for podcast title, will be updated dynamically -->
+
+        <section class="modal-section">
+          <!-- Section for podcast description -->
+          <h3 class="section-label">Description</h3>
+          <!-- Section label -->
+          <p id="modal-description" class="modal-description"></p>
+          <!-- Paragraph for the description, filled dynamically -->
+        </section>
+
+        <section class="modal-section">
+          <!-- Section for genres -->
+          <h4 class="section-label">Genres</h4>
+          <div id="modal-genres" class="genre-list" aria-label="Genres"></div>
+          <!-- Container for genre tags -->
+          <div id="modal-updated" class="updated-text" aria-live="polite"></div>
+          <!-- Text showing last updated info -->
+        </section>
