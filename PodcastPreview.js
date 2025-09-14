@@ -281,3 +281,57 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (sort === 'title-asc') {
       list.sort((a, b) => String(a.title || '').localeCompare(b.title || ''));
     }
+      renderGrid(list); // render filtered & sorted podcasts
+  }
+
+  // render podcast grid
+  function renderGrid(list) {
+    grid.innerHTML = '';
+    if (!list || list.length === 0) {
+      const empty = document.createElement('div');
+      empty.textContent = 'No podcasts found.';
+      empty.style.color = '#6b7280';
+      grid.appendChild(empty);
+      return;
+    }
+
+    const limited = list.slice(0, 8); // only show first 8 podcasts
+
+    limited.forEach(p => {
+      const el = document.createElement('podcast-preview');
+      el.setAttribute('pid', p.id);
+      el.setAttribute('title', p.title || '');
+      el.setAttribute('cover', p.image || '');
+      el.setAttribute('seasons', String(p.seasons || '0'));
+      el.setAttribute('updated', p.updated || '');
+      const gnames = (p.genres || []).map(id => {
+        const gg = genres.find(x => x.id === id);
+        return gg ? gg.title : String(id);
+      });
+      el.setAttribute('genres', JSON.stringify(gnames));
+      grid.appendChild(el);
+    });
+  }
+
+  // open modal with podcast info
+  function openModalForPodcast(p) {
+    lastFocusedElementBeforeModal = document.activeElement;
+
+    modalCover.src = p.image || placeholderDataURI(500, 300);
+    modalCover.onerror = function () {
+      if (!modalCover.src || !modalCover.src.startsWith('data:')) {
+        modalCover.src = placeholderDataURI(500, 300);
+      }
+    };
+
+    modalTitle.textContent = p.title || '';
+    modalDescription.textContent = p.description || '';
+    modalGenres.innerHTML = '';
+    (Array.isArray(p.genres) ? p.genres : []).forEach(gid => {
+      const gobj = genres.find(g => g.id === gid);
+      const sp = document.createElement('span');
+      sp.className = 'genre-pill';
+      sp.textContent = gobj ? gobj.title : gid;
+      modalGenres.appendChild(sp);
+    });
+    modalUpdated.textContent = `Last updated: ${new Date(p.updated || '').toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}`;
