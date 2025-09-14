@@ -335,3 +335,108 @@ document.addEventListener('DOMContentLoaded', () => {
       modalGenres.appendChild(sp);
     });
     modalUpdated.textContent = `Last updated: ${new Date(p.updated || '').toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}`;
+ // seasons list
+    seasonsList.innerHTML = '';
+    const s = seasons.find(x => String(x.id) === String(p.id));
+    if (s && Array.isArray(s.seasonDetails)) {
+      s.seasonDetails.forEach(sd => {
+        const node = document.createElement('div');
+        node.className = 'season-item';
+        node.innerHTML = `<div><div class="season-title">${sd.title}</div><div class="season-sub">${sd.episodes && sd.episodes > 0 ? `${sd.episodes} episodes` : ''}</div></div><div class="kv">${sd.episodes || ''}</div>`;
+        seasonsList.appendChild(node);
+      });
+    } else {
+      const node = document.createElement('div');
+      node.className = 'season-item';
+      node.innerHTML = `<div><div class="season-title">Seasons</div><div class="season-sub">${p.seasons > 0 ? p.seasons : 'No seasons yet'}</div></div><div class="kv"></div>`;
+      seasonsList.appendChild(node);
+    }
+
+    backdrop.hidden = false;
+    modal.hidden = false;
+    modal.removeAttribute('aria-hidden');
+
+    trapFocus(modal); // trap focus inside modal
+    modalClose.focus(); // focus close button for accessibility
+  }
+
+  // close modal
+  function closeModal() {
+    backdrop.hidden = true;
+    modal.hidden = true;
+    modal.setAttribute('aria-hidden', 'true');
+
+    if (modal._trapKeydown) {
+      modal.removeEventListener('keydown', modal._trapKeydown);
+      delete modal._trapKeydown;
+    }
+
+    if (lastFocusedElementBeforeModal) {
+      try { lastFocusedElementBeforeModal.focus(); } catch (e) {}
+      lastFocusedElementBeforeModal = null;
+    }
+  }
+
+  // trap focus inside modal
+  function trapFocus(element) {
+    const focusableSelectors = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusables = Array.from(element.querySelectorAll(focusableSelectors)).filter(el => el.offsetParent !== null);
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    function handleKey(e) {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      } else if (e.key === 'Escape') {
+        closeModal();
+      }
+    }
+
+    element.removeEventListener('keydown', element._trapKeydown);
+    element._trapKeydown = handleKey;
+    element.addEventListener('keydown', handleKey);
+  }
+
+  // initialize filters and listeners
+  fillGenres();
+  document.addEventListener('podcast-selected', evt => {
+    const id = String(evt.detail && evt.detail.id);
+    const p = podcasts.find(x => String(x.id) === id);
+    if (!p) return;
+    openModalForPodcast(p);
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  genreSelect.addEventListener('change', applyFilters);
+  sortSelect.addEventListener('change', applyFilters);
+  searchInput.addEventListener('input', debounce(applyFilters, 180));
+
+  const searchBtn = document.querySelector('.icon-btn[aria-label="Search"]');
+  if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+      try { searchInput.focus(); } catch (e) {}
+    });
+  }
+
+  backdrop.hidden = true;
+  modal.hidden = true;
+  modal.setAttribute('aria-hidden', 'true');
+
+  applyFilters(); // initial grid render
+});
